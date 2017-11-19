@@ -1,0 +1,174 @@
+//Dentro del package Modelo
+package Modelo;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JScrollPane;
+
+public class Interfaz extends JFrame {
+
+	private JPanel panelGeneral, panelAzul, panelBlanco;
+	private JTextField buscartxtField;
+        private JLabel iconoAdmin, iconoRegistrar, iconoInfo, iconoSalir, iconoBuscar;
+	private JTable tabla;
+        private JButton botonEntregar, botonEditar;
+        private JScrollPane scrollPane;
+        private ArrayList<Persona> lista = new ArrayList<Persona>();
+        private String data[][] = new String[1][4];
+        private String[] colum = {"Rut", "Nombre", "Apellido", "Tipo de tarjeta"};
+        //creamos el modelo de tabla con los datos anteriores 
+        private DefaultTableModel dtm;
+
+        
+        public Interfaz(){
+            
+            this.inicializar();
+            
+        }
+
+	
+	public void inicializar() {
+            
+            
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 738, 529);
+                
+                
+		panelGeneral = new JPanel();
+		panelGeneral.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setContentPane(panelGeneral);
+		panelGeneral.setLayout(null);
+		this.setUndecorated(true);
+		this.setLocationRelativeTo(null);
+                this.setVisible(true);
+		
+		panelAzul = new JPanel();
+		panelAzul.setBackground(new Color(0, 153, 255));
+		panelAzul.setBounds(0, 0, 134, 529);
+		panelGeneral.add(panelAzul);
+		panelAzul.setLayout(null);
+                
+                panelBlanco = new JPanel();
+		panelBlanco.setBackground(Color.WHITE);
+		panelBlanco.setBounds(127, 0, 650, 529);
+		panelGeneral.add(panelBlanco);
+		panelBlanco.setLayout(null);
+		
+		iconoAdmin = new JLabel("   ADMIN");
+		iconoAdmin.setIcon(new ImageIcon("iconosProyecto\\iconoInterfazUsuario.png"));
+                iconoRegistrar = new JLabel("  Registrar");
+		iconoRegistrar.setIcon(new ImageIcon("iconosProyecto\\iconoInterfazRegistrar.png"));
+                iconoInfo = new JLabel("  Info");
+		iconoInfo.setIcon(new ImageIcon("iconosProyecto\\iconoInterfazInfo.png"));
+                iconoSalir = new JLabel("X");
+		iconoBuscar = new JLabel("");
+		iconoBuscar.setIcon(new ImageIcon("iconosProyecto\\iconoInterfazBuscar.png"));
+                
+                
+                botonEditar = new JButton("EDITAR");
+		botonEntregar = new JButton("ENTREGAR");
+                
+                
+                
+		buscartxtField = new JTextField();
+                
+                scrollPane = new JScrollPane();
+                
+                
+                
+		iconoBuscar.setBounds(28, 49, 53, 32);
+		iconoAdmin.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		iconoAdmin.setForeground(Color.BLACK);
+		iconoAdmin.setBounds(10, 23, 94, 32);
+                iconoRegistrar.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		iconoRegistrar.setForeground(Color.BLACK);
+		iconoRegistrar.setBounds(10, 103, 114, 32);
+                iconoInfo.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		iconoInfo.setBounds(10, 486, 146, 32);
+                iconoSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		iconoSalir.setBounds(585, 11, 12, 14);
+                
+		botonEditar.setBounds(111, 425, 103, 23);
+		botonEntregar.setBounds(388, 425, 103, 23);
+                
+                buscartxtField.setBackground(Color.WHITE);
+		buscartxtField.setBounds(75, 49, 206, 32);
+		buscartxtField.setColumns(10);
+                
+                
+		scrollPane.setBounds(50, 137, 514, 246);
+                
+                
+		panelAzul.add(iconoAdmin);
+                iconoAdmin.addMouseListener(new MouseAdapter(){
+                   @Override
+                   public void mouseClicked(MouseEvent e) {
+                       Admin a = new Admin();
+                       a.setVisible(true);
+                   }
+                });
+		panelAzul.add(iconoRegistrar);
+                iconoRegistrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Registro r = new Registro();
+				r.setVisible(true);
+			}
+		});
+                panelAzul.add(iconoInfo);
+		iconoSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+                panelBlanco.add(iconoSalir);
+		panelBlanco.add(iconoBuscar);		
+		panelBlanco.add(buscartxtField);
+                panelBlanco.add(botonEditar);
+		panelBlanco.add(botonEntregar);
+		panelBlanco.add(scrollPane);
+		
+		tabla = new JTable();
+		tabla.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null},
+				{null, null, null, null},
+			},
+			new String[] {
+				"RUT", "NOMBRE", "APELLIDO", "TIPO TARJETA"
+			}
+		));
+		scrollPane.setViewportView(tabla);
+                
+                
+                
+        }
+        
+       
+
+}
+
+
+
