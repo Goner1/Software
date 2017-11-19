@@ -1,0 +1,70 @@
+//Dentro del package Modelo
+package Modelo;
+
+import java.util.Date;
+
+
+public class Persona {
+     private String Rut;
+    private String Nombre;
+    private String Apellido;
+    private String TipoTarjeta;
+    private Date Fecha;
+
+    public Persona(String Rut, String Nombre, String Apellido , String TipoTarjeta, Date Fecha) {
+        this.Rut = Rut;
+        this.Nombre = Nombre;
+        this.Apellido = Apellido;
+        this.TipoTarjeta = TipoTarjeta;
+        this.Fecha = Fecha;
+    }
+
+   
+
+   
+
+    public String getRut() {
+        return Rut;
+    }
+
+    public void setRut(String Rut) {
+        this.Rut = Rut;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getApellido() {
+        return Apellido;
+    }
+
+    public void setApellido(String Apellido) {
+        this.Apellido = Apellido;
+    }
+
+    public String getTipoTarjeta() {
+        return TipoTarjeta;
+    }
+
+    public void setTipoTarjeta(String TipoTarjeta) {
+        this.TipoTarjeta = TipoTarjeta;
+    }
+
+    public Date getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(Date Fecha) {
+        this.Fecha = Fecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "Rut=" + Rut + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", TipoTarjeta=" + TipoTarjeta + ", Fecha=" + Fecha + '}';
+    }
+}
