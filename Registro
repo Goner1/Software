@@ -1,0 +1,215 @@
+//Dentro del package Registro
+package Modelo;
+
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+public class Registro extends JFrame implements ActionListener{
+
+        //Se instancian las variables..
+	private JPanel panelGeneral, panelRegistro;
+	private JTextField ruttxtField, nombretxtField, apellidotxtField;
+        private JLabel labelRut, labelNombre, labelApellido, labelTipoTarjeta, labelSalir,labelFormulario;
+        private JComboBox comboBox;
+        private TipoTarjeta t;
+        private JButton botonRegistrar;
+
+	public Registro(){
+            
+            this.inicializar();
+            
+        }
+        
+	public void inicializar() {
+            
+            
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 334, 387);
+                
+		panelGeneral = new JPanel();
+		panelGeneral.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setContentPane(panelGeneral);
+		panelGeneral.setLayout(null);
+		this.setLocationRelativeTo(null);
+		this.setUndecorated(true);
+		
+		panelRegistro = new JPanel();
+		panelRegistro.setBackground(Color.WHITE);
+		panelRegistro.setBounds(0, 0, 334, 387);
+		panelGeneral.add(panelRegistro);
+		panelRegistro.setLayout(null);
+                
+		
+		labelRut = new JLabel("RUT");
+                labelNombre = new JLabel("NOMBRE");
+                labelApellido = new JLabel("APELLIDO");
+                labelTipoTarjeta = new JLabel("TIPO TARJETA");
+                labelSalir = new JLabel(" X");
+                labelFormulario = new JLabel("FORMULARIO REGISTRO");
+                
+                
+                ruttxtField = new JTextField();
+                nombretxtField = new JTextField();
+                apellidotxtField = new JTextField();
+                
+                comboBox = new JComboBox(TipoTarjeta.values());
+                
+                botonRegistrar = new JButton("REGISTRAR");
+                
+                
+                
+                
+                
+                
+		labelRut.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		labelRut.setBounds(37, 90, 86, 14);
+                labelNombre.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		labelNombre.setBounds(37, 130, 86, 14);
+                labelApellido.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		labelApellido.setBounds(37, 170, 86, 14);
+                labelTipoTarjeta.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		labelTipoTarjeta.setBounds(37, 210, 86, 14);
+                ruttxtField.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		ruttxtField.setBounds(165, 90, 116, 20);
+                ruttxtField.setColumns(10);
+                nombretxtField.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		nombretxtField.setBounds(165, 130, 116, 20);
+                nombretxtField.setColumns(10);
+                apellidotxtField.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		apellidotxtField.setBounds(165, 170, 116, 20);
+		apellidotxtField.setColumns(10);
+                comboBox.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+		comboBox.setBackground(Color.WHITE);
+		comboBox.setBounds(165, 210, 116, 20);
+                botonRegistrar.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		botonRegistrar.setBounds(159, 312, 112, 23);
+                labelSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		labelSalir.setBounds(307, 11, 27, 20);
+                labelFormulario.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+		labelFormulario.setBounds(20, 25, 195, 20);
+                
+                
+                
+                
+		panelRegistro.add(labelRut);
+		panelRegistro.add(labelNombre);
+                panelRegistro.add(labelApellido);
+		panelRegistro.add(labelTipoTarjeta);
+		panelRegistro.add(ruttxtField);
+		panelRegistro.add(nombretxtField);
+		panelRegistro.add(apellidotxtField);
+		panelRegistro.add(comboBox);
+		botonRegistrar.addActionListener(this);
+                labelSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+		});
+                panelRegistro.add(botonRegistrar);
+		panelRegistro.add(labelSalir);
+		panelRegistro.add(labelFormulario);
+				
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+            if(botonRegistrar == ae.getSource()){
+            
+		
+		
+	
+        
+            crear();
+
+            dispose();
+        }
+        }
+    
+
+    public void crear() {
+
+        ArrayList<Persona> lista = new ArrayList<>();
+
+        //Pasar archivo json a arraylist java y guardar los datos en otro array
+        JsonParser jsonParser = new JsonParser();
+
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader("data\\Registros.json"));
+
+            JsonElement jsonElement = jsonParser.parse(br);
+
+            ArrayList<Persona> objs = new Gson().fromJson(jsonElement, new TypeToken<List<Persona>>() {
+            }.getType());
+
+            if (objs != null) {
+                lista = objs;
+            }
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter("data\\Registros.json"));
+            bw.write("");
+            bw.close();
+
+        } catch (IOException ex) {
+            System.out.println("Erro al manejar el archivo");
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        //Escribir en un archivo json 
+        String archivo = "data\\Registros.json";
+        FileWriter registrar = null;
+
+        //registrar una persona en el archivo json
+        lista.add(new Persona(ruttxtField.getText(), nombretxtField.getText(), apellidotxtField.getText(),
+                comboBox.getSelectedItem().toString(), new Date()));
+
+        String json = new Gson().toJson(lista);
+
+        try {
+
+            registrar = new FileWriter(archivo, true);
+            registrar.write(json);
+            JOptionPane.showMessageDialog(rootPane, "Informacion guardada correctamente!!");
+
+        } catch (IOException ex) {
+            System.out.println("Problemas abriendo el archivo");
+        } finally {
+            try {
+                registrar.close();
+            } catch (IOException ex) {
+                System.out.println("Problemas cerrando el archivo");
+            }
+        }
+
+    }
+}
+
