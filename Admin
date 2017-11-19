@@ -1,0 +1,101 @@
+//Dentro del package Modelo
+package Modelo;
+
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class Admin extends JFrame implements ActionListener{
+
+	private JPanel panelGeneral, panelAdmin;
+	private JButton botonOk;
+        private JLabel iconoUsuario, iconoSalir, labelNombre, labelCorreo, labelInstitucion,
+                Nombre, Correo, Institucion;
+
+	public Admin() {
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 235, 281);
+		panelGeneral = new JPanel();
+		panelGeneral.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(panelGeneral);
+		panelGeneral.setLayout(null);
+		setUndecorated(true);
+		setLocationRelativeTo(null);
+
+		
+		panelAdmin = new JPanel();
+		panelAdmin.setBackground(Color.WHITE);
+		panelAdmin.setBounds(0, 0, 235, 281);
+		panelGeneral.add(panelAdmin);
+		panelAdmin.setLayout(null);
+		
+		
+		iconoUsuario = new JLabel("");
+		iconoUsuario.setIcon(new ImageIcon("C:\\Users\\Francisco\\Desktop\\iconosProyecto\\icons8-admin-32 (3).png"));
+		labelNombre = new JLabel("Nombre");
+		labelNombre.setFont(new Font("Century Gothic", Font.PLAIN, 11));               
+                labelCorreo = new JLabel("Correo");
+		labelCorreo.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+                labelInstitucion = new JLabel("Instituto");
+		labelInstitucion.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+                Nombre = new JLabel("Sebastian Piraña");
+		Nombre.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+                Correo = new JLabel("sebastianpiraña@gov.cl\r\n");
+		Correo.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+                Institucion = new JLabel("Universidad de la Frontera");
+		Institucion.setFont(new Font("Century Gothic", Font.PLAIN, 11));
+                botonOk = new JButton("OK");
+		iconoSalir = new JLabel("X");
+                iconoSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
+                
+                
+                iconoUsuario.setBounds(94, 27, 32, 41);
+		labelNombre.setBounds(10, 100, 46, 14);
+                labelCorreo.setBounds(10, 130, 46, 14);
+                labelInstitucion.setBounds(10, 160, 46, 14);
+                Nombre.setBounds(66, 100, 117, 14);
+                Correo.setBounds(66, 130, 146, 14);
+                Institucion.setBounds(66, 161, 146, 14);
+                botonOk.setBounds(123, 216, 89, 23);
+		iconoSalir.setBounds(206, 11, 19, 14);
+                
+                
+                
+                panelAdmin.add(iconoUsuario);
+		panelAdmin.add(labelNombre);		
+		panelAdmin.add(labelCorreo);
+		panelAdmin.add(labelInstitucion);
+		panelAdmin.add(Nombre);
+		panelAdmin.add(Correo);
+		panelAdmin.add(Institucion);
+		panelAdmin.add(botonOk);
+		botonOk.addActionListener(this);
+		iconoSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				dispose();
+			}
+		});
+		panelAdmin.add(iconoSalir);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if(botonOk == ae.getSource()){
+			dispose();
+		}
+		
+	}
+}
