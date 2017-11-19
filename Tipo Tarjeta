@@ -1,0 +1,51 @@
+//Dentro del package Modelo
+
+package Modelo;
+
+
+public enum TipoTarjeta {
+        
+    TNE("Tne"),
+    DEBITO("Débito"),
+    CREDITO("Crédito"), 
+    UNIVERSITARIA("Universitaria"),
+    OTRO("Otro");
+    
+    private final String display;
+    
+    private TipoTarjeta(final String s) {
+        display = s;
+    }
+    
+    @Override
+    public String toString() {
+        return display;
+    }
+}
+//
+//    TNE("Tne"),
+//    DEBITO("Débito"),
+//    CREDITO("Crédito"), 
+//    UNIVERSITARIA("Universitaria"),
+//    OTRO("Otro");
+    
+//    
+//        
+//    
+//    
+//    
+//    private final String text;
+//    
+//    private TipoTarjeta(final String text){
+//        this.text = text;
+//        
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return text;
+//    }
+//    
+//    
+//    
+//}
