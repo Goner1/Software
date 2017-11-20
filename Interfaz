@@ -150,21 +150,83 @@ public class Interfaz extends JFrame {
 		panelBlanco.add(botonEntregar);
 		panelBlanco.add(scrollPane);
 		
-		tabla = new JTable();
-		tabla.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"RUT", "NOMBRE", "APELLIDO", "TIPO TARJETA"
-			}
-		));
-		scrollPane.setViewportView(tabla);
+	        scrollPane = new JScrollPane();
+                scrollPane.setBounds(50, 137, 514, 246);
+                panelBlanco.add(scrollPane);
+                //se crea la tabla con el defaultablemodel 
+                dtm = new DefaultTableModel(null, colum);
+                tabla = new JTable(dtm);
+                scrollPane.setViewportView(tabla);
+         //Corregido
+//        JScrollPane scrollPane = new JScrollPane();
+//        scrollPane.setBounds(50, 137, 514, 246);
+//        panelBlanco.add(scrollPane);
+
+//		tabla = new JTable();
+//		tabla.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null},
+//				{null, null, null, null},
+//			},
+//			new String[] {
+//				"RUT", "NOMBRE", "APELLIDO", "TIPO TARJETA"
+//			}
+//		));
+//		scrollPane.setViewportView(tabla);
+               
+	       tabla();
+
+    }
+
+    public void tabla() {
+
+        JsonParser jsonParser = new JsonParser();
+
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader("data\\Registros.json"));
+
+            JsonElement jsonElement = jsonParser.parse(br);
+
+            ArrayList<Persona> objs = new Gson().fromJson(jsonElement, new TypeToken<List<Persona>>() {
+            }.getType());
+
+            if (objs != null) {
+                lista = objs;
+
+                String data[][] = new String[lista.size()][4];
+                for (int i = 0; i < lista.size(); i++) {
+
+                    data[i][0] = lista.get(i).getRut();
+                    data[i][1] = lista.get(i).getNombre();
+                    data[i][2] = lista.get(i).getApellido();
+                    data[i][3] = lista.get(i).getTipoTarjeta();
+                   dtm.addRow(data[i]);
+                }
                 
+               
                 
-                
+               
+
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Error al manejar el archivo");
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
         }
+    }
+     public void actualizarTabla() {
+//        while (dtm.getRowCount() > 0) {
+//            dtm.removeRow(0);
+//        }
+
+       dtm.setColumnCount(0);
+
+       
+    }
         
        
 
