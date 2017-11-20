@@ -150,7 +150,7 @@ public class Interfaz extends JFrame {
 		panelBlanco.add(botonEntregar);
 		panelBlanco.add(scrollPane);
 		
-	        scrollPane = new JScrollPane();
+	        JScrollPane scrollPane = new JScrollPane();
                 scrollPane.setBounds(50, 137, 514, 246);
                 panelBlanco.add(scrollPane);
                 //se crea la tabla con el defaultablemodel 
